@@ -25,17 +25,17 @@ const CATEGORIES = {
 };
 
 const CATEGORY_ICONS = {
-    akhbar: '📰',
-    wazaef: '💼',
-    hijra: '✈️',
-    riyada: '⚽',
-    tabkh: '🍲',
-    siya9a: '🚗',
-    aflam: '🎬',
-    ribh: '💰',
-    hiraf: '🛠️',
-    wataik: '📄',
-    islah: '🔧'
+    akhbar: `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M7 9h6M7 13h8M7 17h5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>`,
+    wazaef: `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="7" width="16" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 7V5h8v2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 13v4" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>`,
+    hijra: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12l16-4-4 5 4 5-16-4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>`,
+    riyada: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10v4H7V3zm-3 4h16v3c0 2.2-1.8 4-4 4v3h-8v-3c-2.2 0-4-1.8-4-4V7z" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>`,
+    tabkh: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14c0 4 3 6 8 6s8-2 8-6H4z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10 8l4-4M14 8l-4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>`,
+    siya9a: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h18v5H3z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M6 12V9h12v3" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="6" cy="17" r="1" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="18" cy="17" r="1" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>`,
+    aflam: `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="6" width="16" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 6l4-4 4 4 4-4 4 4" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>`,
+    ribh: `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="11" r="6" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 8v6M10 10h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>`,
+    hiraf: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l6-6 2 2 8-8 2 2-8 8-2-2-6 6z" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>`,
+    wataik: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h10l4 4v16H6z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M14 2v4h4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 10h8M8 14h8" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>`,
+    islah: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3l7 7-4 4-7-7 4-4zm-4 4l-3 3 7 7 3-3-7-7z" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>`
 };
 
 const CATEGORY_DESCRIPTIONS = {

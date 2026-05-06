@@ -260,13 +260,15 @@ nav {
     border-radius: 50%;
     background: rgba(37, 99, 235, 0.12);
     color: var(--primary-color);
-    font-size: 2.2rem;
     line-height: 1;
     text-shadow: none;
-    -webkit-text-fill-color: var(--primary-color);
-    font-family: 'Segoe UI Symbol', 'Segoe UI Emoji', 'Apple Color Emoji', sans-serif;
     filter: none;
     border: 1px solid rgba(37, 99, 235, 0.25);
+}
+
+#all-categories-grid .category-icon svg {
+    width: 28px;
+    height: 28px;
 }
 
 #all-categories-grid .category-card h3 {
