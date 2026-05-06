@@ -192,15 +192,28 @@ async function loadSingleArticle() {
         if (article) {
             document.title = `${article.title} | مدونة المعرفة`;
             container.innerHTML = `
-                <button type="button" class="article-back-btn" onclick="goBack()">← رجوع</button>
-                <div class="article-detail">
-                    <span class="article-category">${CATEGORIES[article.category] || article.category}</span>
-                    <h1>${article.title}</h1>
-                    <p class="article-date">${article.date}</p>
-                    <img src="${article.image}" alt="${article.title}" onerror="this.src='https://via.placeholder.com/800x400?text=Image+Not+Found'">
-                    <div class="article-content">
-                        ${article.content}
-                    </div>
+                <div class="article-page">
+                    <article class="article-detail">
+                        <header class="article-header">
+                            <h1>${article.title}</h1>
+                            <p class="article-date">📅 ${article.date}</p>
+                        </header>
+                        <img class="article-hero-image" src="${article.image}" alt="${article.title}" onerror="this.src='https://via.placeholder.com/800x400?text=Image+Not+Found'">
+                        <div class="article-content">
+                            ${article.content}
+                        </div>
+                        <section class="article-share" aria-label="شارك المقال">
+                            <h3>شارك المقال:</h3>
+                            <div class="share-buttons">
+                                <a class="share-btn whatsapp" href="https://wa.me/?text=${encodeURIComponent(article.title)}" target="_blank" rel="noopener" aria-label="شارك على واتساب">☘</a>
+                                <a class="share-btn twitter" href="https://twitter.com/intent/tweet?text=${encodeURIComponent(article.title)}" target="_blank" rel="noopener" aria-label="شارك على تويتر">t</a>
+                                <a class="share-btn facebook" href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}" target="_blank" rel="noopener" aria-label="شارك على فيسبوك">f</a>
+                            </div>
+                        </section>
+                        <div class="article-actions">
+                            <button type="button" class="article-back-btn" onclick="goBack()">← العودة للرئيسية</button>
+                        </div>
+                    </article>
                 </div>
             `;
         } else {
@@ -222,6 +235,8 @@ function goBack() {
 
 // Global Nav Handler (Optional but useful for consistency)
 document.addEventListener('DOMContentLoaded', () => {
+    setupScrollTopButton();
+
     // Fix nav links to be relative based on depth
     document.querySelectorAll('a').forEach(link => {
         const href = link.getAttribute('href');
@@ -290,15 +305,36 @@ function generateCategoriesPage() {
         const desc = CATEGORY_DESCRIPTIONS[slug] || '';
 
         return `
-            <div class="category-card">
+            <a href="${basePath}category.html?cat=${slug}" class="category-card category-card-link">
                 <div class="category-icon">${icon}</div>
                 <h3>${title}</h3>
-                <p style="margin: 10px 0; font-size: 0.9rem; color: var(--secondary-color);">📄 ${count} مقالات</p>
-                <p style="margin-bottom: 20px; min-height: 50px;">${desc}</p>
-                <a href="${basePath}category.html?cat=${slug}" class="btn btn-primary" style="display: inline-block; padding: 10px 30px; border-radius: 25px;">عرض التصنيف</a>
-            </div>
+                <p>${desc}</p>
+                <span class="category-count">${count} مقالات</span>
+            </a>
         `;
     }).join('');
 
     grid.innerHTML = html;
+}
+
+function setupScrollTopButton() {
+    if (document.querySelector('.scroll-top-btn')) return;
+
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'scroll-top-btn';
+    button.setAttribute('aria-label', 'العودة إلى الأعلى');
+    button.textContent = '⌃';
+    document.body.appendChild(button);
+
+    const toggleButton = () => {
+        button.classList.toggle('show', window.scrollY > 300);
+    };
+
+    button.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    window.addEventListener('scroll', toggleButton, { passive: true });
+    toggleButton();
 }
