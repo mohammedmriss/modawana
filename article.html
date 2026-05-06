@@ -5,17 +5,63 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تحميل المقال...</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./style.css">
+    <!-- Cache-busted CSS link to prevent GitHub Pages stale caching -->
+    <link rel="stylesheet" href="./style.css?v=20260506">
     <style>
-        body.page-loading .article-detail {
-            opacity: 0;
-            visibility: hidden;
+        /* Fallback styles for critical elements - ensures page never appears blank */
+        html, body {
+            margin: 0;
+            padding: 0;
         }
-        body.page-ready .article-detail {
-            opacity: 1;
-            visibility: visible;
-            transition: opacity 0.2s ease-in-out;
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            direction: rtl;
         }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #2563eb;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+            align-items: center;
+        }
+        
+        /* Main article container */
+        main {
+            min-height: calc(100vh - 140px);
+            padding: 40px 0;
+        }
+        
+        /* Loader styles - completely self-contained */
         .article-loader {
             display: flex;
             flex-direction: column;
@@ -26,17 +72,40 @@
             text-align: center;
             gap: 16px;
         }
+        
         .article-loader .spinner {
             width: 48px;
             height: 48px;
-            border: 5px solid rgba(37,99,235,0.2);
+            border: 5px solid rgba(37, 99, 235, 0.2);
             border-top-color: #2563eb;
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
+        
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
+        
+        /* Article detail - hidden until ready */
+        #article-content .article-detail {
+            display: none;
+        }
+        
+        #article-content.ready .article-detail {
+            display: block;
+            animation: fadeIn 0.3s ease-in;
+        }
+        
+        #article-content.ready .article-loader {
+            display: none;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Back button */
         .back-btn {
             position: fixed;
             top: 15px;
@@ -48,13 +117,23 @@
             border-radius: 8px;
             cursor: pointer;
             z-index: 999;
+            font-family: 'Tajawal', sans-serif;
         }
+        
         .back-btn:hover {
             background: #333;
         }
+        
+        /* Footer */
+        footer {
+            background: #1e293b;
+            color: #fff;
+            padding: 50px 0 20px;
+            margin-top: 80px;
+        }
     </style>
 </head>
-<body class="page-loading">
+<body>
     <header>
         <div class="container">
             <nav>

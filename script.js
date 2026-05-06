@@ -56,13 +56,12 @@ const CATEGORY_DESCRIPTIONS = {
 // If we are in /categories/ or /admin/, we need to go up one level
 const isSubDir = window.location.pathname.includes('/categories/') || window.location.pathname.includes('/admin/');
 const basePath = isSubDir ? '../' : './';
-let pageReady = false;
 
-function markPageReady() {
-    if (pageReady) return;
-    pageReady = true;
-    document.body.classList.remove('page-loading');
-    document.body.classList.add('page-ready');
+function markArticleReady() {
+    const contentContainer = document.getElementById('article-content');
+    if (contentContainer && !contentContainer.classList.contains('ready')) {
+        contentContainer.classList.add('ready');
+    }
 }
 
 // Initialize
@@ -97,13 +96,11 @@ async function init() {
 
         renderArticles();
         renderCategoryDropdown();
-        markPageReady();
     } catch (error) {
         console.error('Error loading articles:', error);
         if (articlesContainer) {
             articlesContainer.innerHTML = '<p style="text-align:center; grid-column: 1/-1;">عذراً، تعذر تحميل المقالات. يرجى التأكد من تشغيل الموقع عبر خادم (Server).</p>';
         }
-        markPageReady();
     }
 }
 
@@ -225,7 +222,7 @@ async function loadSingleArticle() {
         console.error('Error loading article:', error);
         contentContainer.innerHTML = '<p style="text-align:center;">خطأ في تحميل المقال.</p>';
     } finally {
-        markPageReady();
+        markArticleReady();
     }
 }
 
@@ -252,7 +249,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-window.addEventListener('load', markPageReady);
+/* Auto-mark article as ready after network load completes (failsafe) */
+window.addEventListener('load', () => {
+    const contentContainer = document.getElementById('article-content');
+    if (contentContainer && !contentContainer.classList.contains('ready')) {
+        console.warn('Content not marked ready by load event - applying fallback');
+        markArticleReady();
+    }
+});
 
 /**
  * FEATURE: Categories Dropdown with Counts
