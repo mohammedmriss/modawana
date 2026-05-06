@@ -1,6 +1,6 @@
 // Config
 const ARTICLES_PER_PAGE = 6;
-const ASSET_VERSION = '20260506';
+const ASSET_VERSION = '20260506-2';
 let allArticles = [];
 let currentArticles = [];
 let currentPage = 1;
@@ -53,10 +53,13 @@ const CATEGORY_DESCRIPTIONS = {
     islah: 'شروحات صيانة وإصلاح الهواتف الذكية والحواسيب.'
 };
 
-// Determine the base path for assets/data
-// If we are in /categories/ or /admin/, we need to go up one level
-const isSubDir = window.location.pathname.includes('/categories/') || window.location.pathname.includes('/admin/');
-const basePath = isSubDir ? '../' : './';
+// Determine the base path for assets/data.
+// GitHub Pages serves this project under /modawana/, so root-relative project
+// URLs are more stable than ./ and ../ when pages are cached or deep-linked.
+const pathName = window.location.pathname;
+const projectBasePath = pathName.includes('/modawana/') ? '/modawana/' : null;
+const isSubDir = pathName.includes('/categories/') || pathName.includes('/admin/');
+const basePath = projectBasePath || (isSubDir ? '../' : './');
 
 function markArticleReady() {
     const contentContainer = document.getElementById('article-content');
@@ -325,6 +328,6 @@ function goBack() {
   if (document.referrer !== "") {
     history.back();
   } else {
-    window.location.href = "index.html";
+    window.location.href = `${basePath}index.html`;
   }
 }
