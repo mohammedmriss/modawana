@@ -1,6 +1,6 @@
 // Config
 const ARTICLES_PER_PAGE = 6;
-const ASSET_VERSION = '20260506-2';
+const ASSET_VERSION = '20260506-3';
 let allArticles = [];
 let currentArticles = [];
 let currentPage = 1;
