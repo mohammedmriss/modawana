@@ -454,6 +454,14 @@ nav {
     color: #e1306c; /* Instagram color */
 }
 
+.social-link.facebook:hover {
+    color: #1877f2;
+}
+
+.social-link.x-twitter:hover {
+    color: #ffffff;
+}
+
 .social-link svg {
     width: 24px;
     height: 24px;
