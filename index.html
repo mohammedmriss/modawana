@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مدونة المعرفة الشاملة | الرئيسية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo">مدونة المعرفة</a>
+                <ul class="nav-links">
+                    <li><a href="index.html">الرئيسية</a></li>
+                    <li class="dropdown">
+                        <span class="dropdown-toggle">التصنيفات ▼</span>
+                        <div class="dropdown-menu" id="category-dropdown">
+                            <!-- Dynamically populated by JS -->
+                            <div style="padding: 10px 20px;">جاري التحميل...</div>
+                        </div>
+                    </li>
+                    <li><a href="categories.html">جميع التصنيفات</a></li>
+                    <li><a href="about.html">من نحن</a></li>
+                    <li><a href="contact.html">اتصل بنا</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="search-container">
+            <h1>ابحث عن ما يهمك</h1>
+            <input type="text" id="search-input" placeholder="ابحث عن مقالات، وظائف، أخبار...">
+        </section>
+
+        <section id="categories">
+            <h2 class="section-title">التصنيفات</h2>
+            <div class="categories-grid">
+                <a href="category.html?cat=akhbar" class="category-card">
+                    <div class="category-icon">📰</div>
+                    <h3>أخبار</h3>
+                    <p>آخر المستجدات والتقارير</p>
+                </a>
+                <a href="category.html?cat=wazaef" class="category-card">
+                    <div class="category-icon">💼</div>
+                    <h3>وظائف</h3>
+                    <p>فرص الشغل والمباريات</p>
+                </a>
+                <a href="category.html?cat=hijra" class="category-card">
+                    <div class="category-icon">✈️</div>
+                    <h3>الهجرة</h3>
+                    <p>دليل السفر والعمل بالخارج</p>
+                </a>
+                <a href="category.html?cat=riyada" class="category-card">
+                    <div class="category-icon">⚽</div>
+                    <h3>رياضة</h3>
+                    <p>أخبار الكرة والرياضات</p>
+                </a>
+                <a href="category.html?cat=tabkh" class="category-card">
+                    <div class="category-icon">🍲</div>
+                    <h3>الطبخ</h3>
+                    <p>وصفات وأسرار المطبخ</p>
+                </a>
+                <a href="category.html?cat=siya9a" class="category-card">
+                    <div class="category-icon">🚗</div>
+                    <h3>تعليم السياقة</h3>
+                    <p>دروس وقوانين السير</p>
+                </a>
+                <a href="category.html?cat=aflam" class="category-card">
+                    <div class="category-icon">🎬</div>
+                    <h3>أفلام ومسلسلات</h3>
+                    <p>مراجعات وتوصيات فنية</p>
+                </a>
+                <a href="category.html?cat=ribh" class="category-card">
+                    <div class="category-icon">💰</div>
+                    <h3>الربح من الإنترنت</h3>
+                    <p>العمل الحر والتجارة الإلكترونية</p>
+                </a>
+                <a href="category.html?cat=hiraf" class="category-card">
+                    <div class="category-icon">🛠️</div>
+                    <h3>الحرف والمشاريع</h3>
+                    <p>أفكار مشاريع ومهارات يدوية</p>
+                </a>
+                <a href="category.html?cat=wataik" class="category-card">
+                    <div class="category-icon">📄</div>
+                    <h3>الوثائق الإدارية</h3>
+                    <p>دليل المساطر والأوراق الرسمية</p>
+                </a>
+                <a href="category.html?cat=islah" class="category-card">
+                    <div class="category-icon">🔧</div>
+                    <h3>إصلاح الإلكترونيات</h3>
+                    <p>صيانة الهواتف والحواسيب</p>
+                </a>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">آخر المقالات</h2>
+            <div id="articles-container" class="articles-grid">
+                <!-- Articles will be loaded here via JS -->
+            </div>
+            <div id="pagination" class="pagination">
+                <!-- Pagination will be loaded here via JS -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <div>
+                <h3>مدونة المعرفة</h3>
+                <p>منصتكم الشاملة لكل ما يخص الأخبار، الوظائف، والتعليم.</p>
+            </div>
+            <div>
+                <h4>روابط سريعة</h4>
+                <ul>
+                    <li><a href="/">الرئيسية</a></li>
+                    <li><a href="/admin/">لوحة التحكم</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container" style="text-align: center; margin-top: 30px; border-top: 1px solid #334155; padding-top: 20px;">
+            <p>© 2026 مدونة المعرفة. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

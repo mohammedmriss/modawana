@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم | مدونة المعرفة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="login-overlay">
+        <div class="login-card">
+            <h2>تسجيل الدخول</h2>
+            <p style="margin-bottom: 20px; color: #64748b;">أدخل بيانات GitHub للبدء</p>
+            <div class="form-group">
+                <label>GitHub Personal Access Token</label>
+                <input type="password" id="github-token" placeholder="ghp_xxxxxxxxxxxx">
+            </div>
+            <div class="form-group">
+                <label>اسم المستخدم (GitHub)</label>
+                <input type="text" id="github-user" placeholder="username">
+            </div>
+            <div class="form-group">
+                <label>اسم المستودع (Repo Name)</label>
+                <input type="text" id="github-repo" placeholder="my-blog">
+            </div>
+            <button class="btn btn-primary" style="width: 100%;" onclick="admin.login()">دخول</button>
+        </div>
+    </div>
+
+    <div class="admin-container">
+        <header>
+            <h1>لوحة التحكم</h1>
+            <div style="display: flex; gap: 10px;">
+                <button class="btn btn-success" onclick="admin.showModal()">+ مقال جديد</button>
+                <button class="btn btn-danger" onclick="admin.logout()">خروج</button>
+            </div>
+        </header>
+
+        <div class="articles-list" id="articles-list">
+            <!-- Articles will be listed here -->
+            <div style="padding: 40px; text-align: center;">جاري تحميل المقالات...</div>
+        </div>
+    </div>
+
+    <!-- Article Editor Modal -->
+    <div class="modal" id="article-modal">
+        <div class="modal-content">
+            <h2 id="modal-title">إضافة مقال جديد</h2>
+            <input type="hidden" id="article-id">
+            <div class="form-group">
+                <label>العنوان</label>
+                <input type="text" id="edit-title">
+            </div>
+            <div class="form-group">
+                <label>التصنيف</label>
+                <select id="edit-category">
+                    <option value="akhbar">أخبار</option>
+                    <option value="wazaef">وظائف</option>
+                    <option value="hijra">الهجرة</option>
+                    <option value="riyada">رياضة</option>
+                    <option value="tabkh">الطبخ</option>
+                    <option value="siya9a">تعليم السياقة</option>
+                    <option value="aflam">أفلام ومسلسلات</option>
+                    <option value="ribh">الربح من الإنترنت</option>
+                    <option value="hiraf">الحرف والمشاريع</option>
+                    <option value="wataik">الوثائق الإدارية</option>
+                    <option value="islah">إصلاح الإلكترونيات</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>رابط الصورة</label>
+                <input type="text" id="edit-image">
+            </div>
+            <div class="form-group">
+                <label>المحتوى (HTML)</label>
+                <textarea id="edit-content" rows="10"></textarea>
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <button class="btn btn-primary" onclick="admin.saveArticle()">حفظ</button>
+                <button class="btn btn-danger" onclick="admin.hideModal()">إلغاء</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>
