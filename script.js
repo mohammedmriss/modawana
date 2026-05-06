@@ -1,6 +1,5 @@
 // Config
 const ARTICLES_PER_PAGE = 6;
-const ASSET_VERSION = '20260506-3';
 let allArticles = [];
 let currentArticles = [];
 let currentPage = 1;
@@ -53,25 +52,15 @@ const CATEGORY_DESCRIPTIONS = {
     islah: 'شروحات صيانة وإصلاح الهواتف الذكية والحواسيب.'
 };
 
-// Determine the base path for assets/data.
-// GitHub Pages serves this project under /modawana/, so root-relative project
-// URLs are more stable than ./ and ../ when pages are cached or deep-linked.
-const pathName = window.location.pathname;
-const projectBasePath = pathName.includes('/modawana/') ? '/modawana/' : null;
-const isSubDir = pathName.includes('/categories/') || pathName.includes('/admin/');
-const basePath = projectBasePath || (isSubDir ? '../' : './');
-
-function markArticleReady() {
-    const contentContainer = document.getElementById('article-content');
-    if (contentContainer && !contentContainer.classList.contains('ready')) {
-        contentContainer.classList.add('ready');
-    }
-}
+// Determine the base path for assets/data
+// If we are in /categories/ or /admin/, we need to go up one level
+const isSubDir = window.location.pathname.includes('/categories/') || window.location.pathname.includes('/admin/');
+const basePath = isSubDir ? '../' : './';
 
 // Initialize
 async function init() {
     try {
-        const response = await fetch(`${basePath}articles.json?v=${ASSET_VERSION}`);
+        const response = await fetch(basePath + 'articles.json');
         if (!response.ok) throw new Error('Failed to load articles.json');
         const data = await response.json();
         allArticles = data.articles;
@@ -191,30 +180,18 @@ function handleSearch(e) {
 async function loadSingleArticle() {
     const params = new URLSearchParams(window.location.search);
     const id = params.get('id');
-    const contentContainer = document.getElementById('article-content');
+    const container = document.getElementById('article-content-wrapper');
 
-    if (!contentContainer) return;
-
-    if (!id) {
-        contentContainer.innerHTML = `
-            <div class="article-detail" style="text-align:center;">
-                <h2>المقال غير محدد</h2>
-                <a href="${basePath}index.html" class="btn btn-primary">العودة للرئيسية</a>
-            </div>
-        `;
-        markArticleReady();
-        return;
-    }
+    if (!id || !container) return;
 
     try {
-        const response = await fetch(`${basePath}articles.json?v=${ASSET_VERSION}`);
-        if (!response.ok) throw new Error('Failed to load articles.json');
+        const response = await fetch(basePath + 'articles.json');
         const data = await response.json();
         const article = data.articles.find(a => a.id == id);
 
         if (article) {
             document.title = `${article.title} | مدونة المعرفة`;
-            contentContainer.innerHTML = `
+            container.innerHTML = `
                 <div class="article-detail">
                     <span class="article-category">${CATEGORIES[article.category] || article.category}</span>
                     <h1>${article.title}</h1>
@@ -226,18 +203,11 @@ async function loadSingleArticle() {
                 </div>
             `;
         } else {
-            contentContainer.innerHTML = `
-                <div class="article-detail" style="text-align:center;">
-                    <h2>المقال غير موجود</h2>
-                    <a href="${basePath}index.html" class="btn btn-primary">العودة للرئيسية</a>
-                </div>
-            `;
+            container.innerHTML = '<div class="article-detail" style="text-align:center;"><h2>المقال غير موجود</h2><a href="${basePath}index.html" class="btn btn-primary">العودة للرئيسية</a></div>';
         }
     } catch (error) {
         console.error('Error loading article:', error);
-        contentContainer.innerHTML = '<p style="text-align:center;">خطأ في تحميل المقال.</p>';
-    } finally {
-        markArticleReady();
+        container.innerHTML = '<p style="text-align:center;">خطأ في تحميل المقال.</p>';
     }
 }
 
@@ -322,12 +292,4 @@ function generateCategoriesPage() {
     }).join('');
 
     grid.innerHTML = html;
-}
-
-function goBack() {
-  if (document.referrer !== "") {
-    history.back();
-  } else {
-    window.location.href = `${basePath}index.html`;
-  }
 }
