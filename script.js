@@ -192,6 +192,7 @@ async function loadSingleArticle() {
         if (article) {
             document.title = `${article.title} | مدونة المعرفة`;
             container.innerHTML = `
+                <button type="button" class="article-back-btn" onclick="goBack()">← رجوع</button>
                 <div class="article-detail">
                     <span class="article-category">${CATEGORIES[article.category] || article.category}</span>
                     <h1>${article.title}</h1>
@@ -208,6 +209,14 @@ async function loadSingleArticle() {
     } catch (error) {
         console.error('Error loading article:', error);
         container.innerHTML = '<p style="text-align:center;">خطأ في تحميل المقال.</p>';
+    }
+}
+
+function goBack() {
+    if (document.referrer) {
+        history.back();
+    } else {
+        window.location.href = `${basePath}index.html`;
     }
 }
 

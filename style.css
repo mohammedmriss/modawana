@@ -311,6 +311,27 @@ footer {
 }
 
 /* Single Article */
+.article-back-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 30px auto 0;
+    padding: 10px 18px;
+    background: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
+}
+
+.article-back-btn:hover {
+    background: #1d4ed8;
+}
+
 .article-detail {
     max-width: 800px;
     margin: 40px auto;
