@@ -5,27 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تحميل المقال...</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./style.css">
     <style>
+        body.page-loading .article-detail {
+            opacity: 0;
+            visibility: hidden;
+        }
+        body.page-ready .article-detail {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.2s ease-in-out;
+        }
+        .article-loader {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 220px);
+            color: #64748b;
+            text-align: center;
+            gap: 16px;
+        }
+        .article-loader .spinner {
+            width: 48px;
+            height: 48px;
+            border: 5px solid rgba(37,99,235,0.2);
+            border-top-color: #2563eb;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
         .back-btn {
-  position: fixed;
-  top: 15px;
-  left: 15px;
-  padding: 10px 15px;
-  background: #111;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  z-index: 999;
-}
-
-.back-btn:hover {
-  background: #333;
-}
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            padding: 10px 15px;
+            background: #111;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            z-index: 999;
+        }
+        .back-btn:hover {
+            background: #333;
+        }
     </style>
 </head>
-<body>
+<body class="page-loading">
     <header>
         <div class="container">
             <nav>
@@ -48,8 +77,12 @@
     </header>
 
     <main class="container" id="article-content-wrapper">
-        <!-- Article will be loaded here via JS -->
-        <div style="text-align: center; padding: 50px;">جاري التحميل...</div>
+        <div id="article-content">
+            <div class="article-loader">
+                <div class="spinner"></div>
+                <p>جاري تحميل المقال...</p>
+            </div>
+        </div>
         <button onclick="goBack()" class="back-btn">← رجوع</button>
     </main>
 
@@ -72,6 +105,6 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script defer src="./script.js"></script>
 </body>
 </html>

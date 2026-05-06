@@ -56,6 +56,14 @@ const CATEGORY_DESCRIPTIONS = {
 // If we are in /categories/ or /admin/, we need to go up one level
 const isSubDir = window.location.pathname.includes('/categories/') || window.location.pathname.includes('/admin/');
 const basePath = isSubDir ? '../' : './';
+let pageReady = false;
+
+function markPageReady() {
+    if (pageReady) return;
+    pageReady = true;
+    document.body.classList.remove('page-loading');
+    document.body.classList.add('page-ready');
+}
 
 // Initialize
 async function init() {
@@ -89,11 +97,13 @@ async function init() {
 
         renderArticles();
         renderCategoryDropdown();
+        markPageReady();
     } catch (error) {
         console.error('Error loading articles:', error);
         if (articlesContainer) {
             articlesContainer.innerHTML = '<p style="text-align:center; grid-column: 1/-1;">عذراً، تعذر تحميل المقالات. يرجى التأكد من تشغيل الموقع عبر خادم (Server).</p>';
         }
+        markPageReady();
     }
 }
 
@@ -180,18 +190,19 @@ function handleSearch(e) {
 async function loadSingleArticle() {
     const params = new URLSearchParams(window.location.search);
     const id = params.get('id');
-    const container = document.getElementById('article-content-wrapper');
+    const contentContainer = document.getElementById('article-content');
 
-    if (!id || !container) return;
+    if (!id || !contentContainer) return;
 
     try {
         const response = await fetch(basePath + 'articles.json');
+        if (!response.ok) throw new Error('Failed to load articles.json');
         const data = await response.json();
         const article = data.articles.find(a => a.id == id);
 
         if (article) {
             document.title = `${article.title} | مدونة المعرفة`;
-            container.innerHTML = `
+            contentContainer.innerHTML = `
                 <div class="article-detail">
                     <span class="article-category">${CATEGORIES[article.category] || article.category}</span>
                     <h1>${article.title}</h1>
@@ -200,15 +211,21 @@ async function loadSingleArticle() {
                     <div class="article-content">
                         ${article.content}
                     </div>
-                    <button onclick="goBack()" class="back-btn">← رجوع</button>
                 </div>
             `;
         } else {
-            container.innerHTML = '<div class="article-detail" style="text-align:center;"><h2>المقال غير موجود</h2><a href="${basePath}index.html" class="btn btn-primary">العودة للرئيسية</a></div>';
+            contentContainer.innerHTML = `
+                <div class="article-detail" style="text-align:center;">
+                    <h2>المقال غير موجود</h2>
+                    <a href="${basePath}index.html" class="btn btn-primary">العودة للرئيسية</a>
+                </div>
+            `;
         }
     } catch (error) {
         console.error('Error loading article:', error);
-        container.innerHTML = '<p style="text-align:center;">خطأ في تحميل المقال.</p>';
+        contentContainer.innerHTML = '<p style="text-align:center;">خطأ في تحميل المقال.</p>';
+    } finally {
+        markPageReady();
     }
 }
 
@@ -234,6 +251,8 @@ document.addEventListener('DOMContentLoaded', () => {
         init();
     }
 });
+
+window.addEventListener('load', markPageReady);
 
 /**
  * FEATURE: Categories Dropdown with Counts
