@@ -1,5 +1,6 @@
 // Config
 const ARTICLES_PER_PAGE = 6;
+const ASSET_VERSION = '20260506';
 let allArticles = [];
 let currentArticles = [];
 let currentPage = 1;
@@ -67,7 +68,7 @@ function markArticleReady() {
 // Initialize
 async function init() {
     try {
-        const response = await fetch(basePath + 'articles.json');
+        const response = await fetch(`${basePath}articles.json?v=${ASSET_VERSION}`);
         if (!response.ok) throw new Error('Failed to load articles.json');
         const data = await response.json();
         allArticles = data.articles;
@@ -189,10 +190,21 @@ async function loadSingleArticle() {
     const id = params.get('id');
     const contentContainer = document.getElementById('article-content');
 
-    if (!id || !contentContainer) return;
+    if (!contentContainer) return;
+
+    if (!id) {
+        contentContainer.innerHTML = `
+            <div class="article-detail" style="text-align:center;">
+                <h2>المقال غير محدد</h2>
+                <a href="${basePath}index.html" class="btn btn-primary">العودة للرئيسية</a>
+            </div>
+        `;
+        markArticleReady();
+        return;
+    }
 
     try {
-        const response = await fetch(basePath + 'articles.json');
+        const response = await fetch(`${basePath}articles.json?v=${ASSET_VERSION}`);
         if (!response.ok) throw new Error('Failed to load articles.json');
         const data = await response.json();
         const article = data.articles.find(a => a.id == id);
@@ -246,15 +258,6 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         // For other pages (About, Contact), we still want the dropdown
         init();
-    }
-});
-
-/* Auto-mark article as ready after network load completes (failsafe) */
-window.addEventListener('load', () => {
-    const contentContainer = document.getElementById('article-content');
-    if (contentContainer && !contentContainer.classList.contains('ready')) {
-        console.warn('Content not marked ready by load event - applying fallback');
-        markArticleReady();
     }
 });
 
