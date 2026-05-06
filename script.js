@@ -200,6 +200,7 @@ async function loadSingleArticle() {
                     <div class="article-content">
                         ${article.content}
                     </div>
+                    <button onclick="goBack()" class="back-btn">← رجوع</button>
                 </div>
             `;
         } else {
